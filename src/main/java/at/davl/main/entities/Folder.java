@@ -24,9 +24,10 @@ public class Folder {
     @Column(nullable = false)
     private Integer number; //
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="userId", nullable=false)
     private User user;
+
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "folder")
     private Set<Content> contents;

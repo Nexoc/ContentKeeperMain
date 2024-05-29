@@ -36,15 +36,15 @@ public class Content {
     @Column(nullable = true, name = "screenshots")
     private Set<String> screenshot;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="folderId", nullable=false)
-    private User user;
+    private Folder folder;
 
-    public Content(Integer contentId, String title, String content, Set<String> screenshot, User user) {
+    public Content(Integer contentId, String title, String content, Set<String> screenshot, Folder folder) {
         this.title = title;
         this.content = content;
         this.publishedOn = LocalDateTime.now();
         this.screenshot = screenshot;
-        this.user = user;
+        this.folder = folder;
     }
 }
