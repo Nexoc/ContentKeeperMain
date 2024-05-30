@@ -1,4 +1,4 @@
-package at.davl.main.entities;
+package at.davl.main.entities.entityContent;
 
 
 import jakarta.persistence.Entity;
