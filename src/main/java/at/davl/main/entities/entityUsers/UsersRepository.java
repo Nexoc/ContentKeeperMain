@@ -1,7 +1,9 @@
-package at.davl.main.repositories.repositoryUsers;
+package at.davl.main.entities.entityUsers;
 
-import at.davl.main.entities.entityUsers.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 }

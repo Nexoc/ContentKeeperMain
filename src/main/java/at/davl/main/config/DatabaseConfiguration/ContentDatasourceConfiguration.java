@@ -1,68 +1,29 @@
 package at.davl.main.config.DatabaseConfiguration;
 
-import java.util.HashMap;
-import java.util.Objects;
 import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 
-
+@Primary
 @Configuration
-@EnableJpaRepositories(
-        entityManagerFactoryRef = "contentEntityManagerFactory",
-        transactionManagerRef = "contentTransactionManager",
-        basePackages = { "at.davl.main.repositories.repositoryContent" }
-)
 public class ContentDatasourceConfiguration {
 
-    @Autowired
-    private Environment env;
-
     @Bean
     @Primary
-    public LocalContainerEntityManagerFactoryBean contentEntityManager() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(contentDataSource());
-        em.setPackagesToScan(new String[] { "at/davl/main/entities/entityContent" });
-
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.ddl.auto", env.getProperty("spring.jpa.hibernate.ddl.auto"));
-        properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.database-platform"));
-        em.setJpaPropertyMap(properties);
-        return em;
-    }
-
-    @Primary
-    @Bean
     @ConfigurationProperties("spring.datasource.content")
-    public DataSource contentDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("spring.datasource.content.driver-class-name")));
-        dataSource.setUrl(env.getProperty("spring.datasource.content.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.content.user"));
-        dataSource.setPassword(env.getProperty("spring.datasource.content.pass"));
-        return dataSource;
+    public DataSourceProperties contentDataSourceProperties() {
+        return new DataSourceProperties();
     }
 
-    @Primary
     @Bean
-    public PlatformTransactionManager contentTransactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(contentEntityManager().getObject());
-        return transactionManager;
+    @Primary
+    @ConfigurationProperties("spring.datasource.content.hikari")
+    public DataSource contentDataSource() {
+        return contentDataSourceProperties()
+                .initializeDataSourceBuilder()
+                .build();
     }
-
 }

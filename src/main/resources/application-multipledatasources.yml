@@ -7,6 +7,8 @@ spring:
       username: marat
       password: '0000'
       driver-class-name: org.postgresql.Driver
+      hikari:
+        connectionTimeout: 44444
 
     users:
       url: jdbc:postgresql://localhost:5432/users
@@ -14,13 +16,23 @@ spring:
       password: '0880'
       driver-class-name: org.postgresql.Driver
 
+  #jpa:
+    #hibernate:
+      #ddl-auto: create-drop
+    #show-sql: true
+    #properties:
+      #hibernate:
+        #format_sql: true
+
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
+    content:
       hibernate:
-        format_sql: true
+        ddl-auto: create-drop
+      show-sql: true
+    users:
+      hibernate:
+        ddl-auto: create-drop
+
       database: postgresql
       database-platform: org.hibernate.dialect.PostgreSQLDialect
 
