@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -48,6 +49,7 @@ public class ContentDatasourceConfiguration {
 
     @Primary
     @Bean
+    @ConfigurationProperties("spring.datasource.content")
     public DataSource contentDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("spring.datasource.content.driver-class-name")));

@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,6 +25,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 /*
 ### Configure and Use Multiple DataSources in Spring Boot
 https://www.baeldung.com/spring-boot-configure-multiple-datasources
+
+https://www.baeldung.com/spring-data-jpa-multiple-databases
+
+https://github.com/eugenp/tutorials/tree/master/persistence-modules/spring-data-jdbc
 
 */
 
@@ -56,6 +61,7 @@ public class UserDatasourceConfiguration {
     }
 
     @Bean
+    @ConfigurationProperties("spring.datasource.users")
     public DataSource userDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("spring.datasource.users.driver-class-name")));
