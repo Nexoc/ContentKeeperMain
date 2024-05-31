@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 
-@EnableJpaRepositories
-//@Repository
+
+@Repository
 public interface ContentRepository extends JpaRepository<Content, Integer>{
 
 }

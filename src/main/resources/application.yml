@@ -1,6 +1,5 @@
 spring:
-  main:
-    allow-bean-definition-overriding: true
+
   datasource:
     content:
       # localhost port content
