@@ -2,6 +2,7 @@ package at.davl.main.config.DatabaseConfiguration;
 
 import at.davl.main.entities.entityUsers.Users;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import java.util.Objects;
         entityManagerFactoryRef = "usersEntityManagerFactory",
         transactionManagerRef = "usersTransactionManager"
 )
+@EntityScan("at/davl/main/entities/entityUsers")
 public class UserJpaConfiguration {
     @Bean
     public LocalContainerEntityManagerFactoryBean usersEntityManagerFactory(

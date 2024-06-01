@@ -6,6 +6,7 @@ import at.davl.main.entities.entityContent.Folder;
 import at.davl.main.entities.entityContent.User;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ import java.util.Objects;
         entityManagerFactoryRef = "contentEntityManagerFactory",
         transactionManagerRef = "contentTransactionManager",
         basePackageClasses = {Content.class, Folder.class, User.class})
+@EntityScan("at/davl/main/entities/entityContent")
 public class ContentJpaConfiguration {
 
     @Primary
